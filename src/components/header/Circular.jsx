@@ -8,7 +8,10 @@ import Typography from '@mui/material/Typography';
 export default function Circular() {
   const todos = useSelector((state) => state.todos);
   const completed = todos.filter((todo) => todo.completed);
-  const progress = Number(((completed.length / todos.length) * 100).toFixed());
+  const progress =
+    completed.length !== 0
+      ? Number(((completed.length / todos.length) * 100).toFixed())
+      : 0;
 
   return (
     <Stack

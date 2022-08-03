@@ -2,10 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import InputField from './InputField';
 import DateTimePicker from './DateTimePicker';
-
 import { addTodo } from '../../redux/store/todoSlice';
 import FormDialog from './FormDialog';
-import { timePickerValueManager } from '@mui/x-date-pickers/TimePicker/shared';
 
 export default function Dialog() {
   // FormDialog
@@ -17,6 +15,7 @@ export default function Dialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
   React.useEffect(() => {
     setTodo({
       id: null,
@@ -54,7 +53,6 @@ export default function Dialog() {
   const handleChange = (e) => {
     if (e.target !== undefined) {
       const { name, value } = e.target;
-      console.log(value);
       setTodo({ ...todo, [name]: value });
       if (name == 'type') setType(value);
     } else {
@@ -63,8 +61,9 @@ export default function Dialog() {
     }
   };
   const handleSubmit = () => {
+    const condition = Object.values(todo).some((value) => value === null || '');
+    if (condition) return alert('You should fill all fields');
     setTodo({ todocopy });
-    console.log(todo);
     dispatch(addTodo(todo));
     setOpen(false);
   };
