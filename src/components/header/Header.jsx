@@ -5,6 +5,7 @@ import mountains from '../../img/mountains.png';
 import Text from './Text';
 import Circular from './Circular';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from '@mui/material';
 
 export default function Header() {
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
@@ -14,6 +15,8 @@ export default function Header() {
   );
   const personal = todos.filter((todo) => todo.type === 'personal');
   const business = todos.filter((todo) => todo.type === 'business');
+  const matches = useMediaQuery(`(min-width: 600px)`);
+  const size = matches ? '1.5rem' : '.9rem';
 
   return (
     <div
@@ -55,7 +58,7 @@ export default function Header() {
               <Text size="2rem" align="right">
                 {personal.length}
               </Text>
-              <Text weight="300" size="1rem" align="right">
+              <Text weight="300" size={size} align="right">
                 Personal
               </Text>
             </Grid>
@@ -63,7 +66,7 @@ export default function Header() {
               <Text size="2rem" align="right">
                 {business.length}
               </Text>
-              <Text weight="300" size="1rem" align="right">
+              <Text weight="300" size={size} align="right">
                 Business
               </Text>
             </Grid>

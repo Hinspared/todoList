@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import TextField from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';
 
@@ -36,6 +36,7 @@ export default function InputField({
         fullWidth
         variant="standard"
         onChange={onChange}
+        inputProps={{ maxLength: 16 }}
       />
     );
   }
