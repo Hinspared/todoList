@@ -1,25 +1,26 @@
-import { React } from 'react';
+import { React, useEffect, forwardRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';
 
-export default function InputField({
-  name,
-  onChange,
-  select = false,
-  value = '',
-}) {
-  if (select) {
+const InputField = forwardRef((props, ref) => {
+  useEffect(() => {
+    if (props.name === 'title') ref.current.focus();
+  }, [props.open]);
+
+  if (props.select) {
     return (
       <TextField
         id={Date.now().toString()}
-        name={name}
-        label={name[0].toUpperCase() + name.slice(1)}
+        name={props.name}
+        label={props.name[0].toUpperCase() + props.name.slice(1)}
         type="text"
-        select={select}
+        select={props.select}
         fullWidth
         variant="standard"
-        onChange={onChange}
-        value={value}
+        onChange={props.onChange}
+        value={props.value}
+        inputRef={ref}
+        onKeyDown={props.onKeyDown}
       >
         <MenuItem value="personal">Personal</MenuItem>
         <MenuItem value="business">Business</MenuItem>
@@ -29,15 +30,22 @@ export default function InputField({
     return (
       <TextField
         id={Date.now().toString()}
-        name={name}
-        label={name[0].toUpperCase() + name.slice(1)}
+        name={props.name}
+        label={props.name[0].toUpperCase() + props.name.slice(1)}
         type="text"
-        select={select}
+        select={props.select}
         fullWidth
         variant="standard"
-        onChange={onChange}
-        inputProps={{ maxLength: 16 }}
+        onChange={props.onChange}
+        inputProps={{
+          maxLength: 16,
+          autoComplete: 'off',
+        }}
+        onKeyDown={props.onKeyDown}
+        inputRef={ref}
       />
     );
   }
-}
+});
+
+export default InputField;

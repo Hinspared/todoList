@@ -7,7 +7,6 @@ import FormDialog from './FormDialog';
 
 export default function Dialog() {
   // FormDialog
-
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,6 +15,7 @@ export default function Dialog() {
     setOpen(false);
   };
 
+  // Clear todo on close
   React.useEffect(() => {
     setTodo({
       id: null,
@@ -29,7 +29,6 @@ export default function Dialog() {
   }, [!open]);
 
   // Todo
-
   const [todo, setTodo] = React.useState({
     id: null,
     title: null,
@@ -49,6 +48,7 @@ export default function Dialog() {
 
   // Change type of Todo between business and personal
   const [type, setType] = React.useState('');
+
   // Handlers
   const handleChange = (e) => {
     if (e.target !== undefined) {
@@ -67,6 +67,22 @@ export default function Dialog() {
     dispatch(addTodo(todo));
     setOpen(false);
   };
+  // Jump to next input on the key "Enter"
+  const refTitle = React.useRef(null);
+  const refPlace = React.useRef(null);
+  let i = 1;
+
+  const handleEnter = (e) => {
+    const refs = [refTitle, refPlace];
+    if (e.key.toLowerCase() === 'enter') {
+      refs[i].current.focus();
+      if (i === 1) {
+        i = 0;
+      } else {
+        i = 1;
+      }
+    }
+  };
 
   return (
     <FormDialog
@@ -75,10 +91,20 @@ export default function Dialog() {
       onClick={handleClickOpen}
       onSubmit={handleSubmit}
     >
-      {/* <BasicSelect type={type} onChange={handleChange} /> */}
       <InputField name="type" select value={type} onChange={handleChange} />
-      <InputField name="title" onChange={handleChange} />
-      <InputField name="place" onChange={handleChange} />
+      <InputField
+        name="title"
+        onChange={handleChange}
+        open={open}
+        onKeyDown={handleEnter}
+        ref={refTitle}
+      />
+      <InputField
+        name="place"
+        onChange={handleChange}
+        ref={refPlace}
+        onKeyDown={handleEnter}
+      />
       <DateTimePicker value={time} onChange={handleChange} />
     </FormDialog>
   );

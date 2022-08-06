@@ -8,13 +8,12 @@ import { useSelector } from 'react-redux';
 
 export default function TodoList() {
   const todos = useSelector((state) => state.todos);
-
   return (
     <Container maxWidth="md" sx={{ paddingTop: '3rem' }}>
       <Text size="1rem" color="gray" weight="400">
-        INBOX
+        LIST
       </Text>
-      <Stack spacing={3}>
+      <Stack spacing={3} marginTop={3}>
         {todos.map((todo) => (
           <TodoItem
             id={todo.id}
