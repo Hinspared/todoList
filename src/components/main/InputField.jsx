@@ -2,8 +2,10 @@ import { React, useEffect, forwardRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { MenuItem } from '@mui/material';
 
+// Set Focus on input Title when FormDialog is open
 const InputField = forwardRef((props, ref) => {
   useEffect(() => {
+    window.scroll(0, 0);
     if (props.name === 'title') ref.current.focus();
   }, [props.open]);
 

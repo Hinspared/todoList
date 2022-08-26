@@ -8,7 +8,6 @@ import { toggleComplete, deleteTodo } from '../../redux/store/todoSlice';
 import ToggleComponent from './ToggleComponent';
 import { useMediaQuery } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Delete } from '@mui/icons-material';
 
 export default function TodoItem({
   title,
